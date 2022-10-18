@@ -11,36 +11,50 @@
 
 <body>
   <div class="container">
-    <form onsubmit="sendEmail(); reset(); return false;">
+    <form class="contact_form" action="#">
       <h3>CONTACT FORM</h3>
-      <input type="text" id="name" placeholder="Your name" required>
-      <input type="email" id="email" placeholder="Email address" required>
-      <input type="tel" id="phone" placeholder="Phone number" required>
-      <input type="text" id="subject" placeholder="Subject" required>
-      <textarea  id="message"  rows="4" placeholder="Enter your message"></textarea>
+      <input type="text" class="name" placeholder="Your name" required>
+      <input type="email" class="email" placeholder="Email address" required>
+      <input type="tel" class="phone" placeholder="Phone number" required>
+      <input type="text" class="subject" placeholder="Subject" required>
+      <textarea  class="message"  rows="4" placeholder="Enter your message"></textarea>
       <button type="submit">Send</button>
     </form>
   </div>
 
   <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script>
-    function sendEmail() {
+
+    const form = document.querySelector('.contact_form');
+
+    function sendMsg(e) {
+      e.preventDefault();
+      
+          const name = document.querySelector('.name'),
+                email = document.querySelector('.email'),
+                phone = document.querySelector('.phone'),
+                subject = document.querySelector('.subject'),
+                message = document.querySelector('.message');
+
+
+
       Email.send({
-          Host : "smtp.gmail.com",
-          Username : "obinwannethefirst@gmail.com",
-          Password : "pnzzeaqfedkxpygz",
-          To : 'obinwannethefirst@gmail.com',
-          From : document.getElementById("email").value,
-          Subject : "New Contact Form Enquiry",
-          Body : "Name: " + document.getElementById("name").value
-                  + "<br> Email: " + document.getElementById("email").value
-                  + "<br> Phone Number: " + document.getElementById("phone").value
-                  + "<br> Subject: " + document.getElementById("subject").value
-                  + "<br> Message: " + document.getElementById("message").value
+        SecureToken : "e8f58a32-257c-447a-902f-46fc4cf89bb2",
+        To : 'obinwannethefirst@gmail.com',
+        From : email.value,
+        Subject : "Contact Form",
+        Body : "Name: " + name.value 
+                + "<br> Email:" + email.value
+                + "<br> Phone Number:" + phone.value
+                + "<br> Subject:" + subject.value
+                + "<br> Message:" + message.value
       }).then(
         message => alert(message)
       );
-          }
+    }
+
+    form.addEventListener('submit', sendMsg)
+
   </script>
 
 </body>
